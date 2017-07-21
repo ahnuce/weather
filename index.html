@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Weather</title>
     <link rel="stylesheet" href="style.css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script
       src="https://code.jquery.com/jquery-2.2.4.min.js"
       integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -15,14 +15,64 @@
   <body>
     <script src="app.js"></script>
 
+    <div class="container">
+      <div class="row">
+        <header class="col-xs-12 text-center">
+          <h1>Weather App</h1>
+        </header>
 
-<div id="forecast">
-  <h1>Weather in <span id="location"></span></h1>
-  <div id="imgdiv">
-    <img src="" id="img">
-  </div>
-  <p>It is currently <span id="temp"></span>F with <span id="desc"></span></p>
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="text-center status">
+            <p><span id="city"></span> <span id="country"></span></p>
+            <p><span id="temp"></span><span class="temp" id="tempunit" ></span></p>
+            <p id="desc"></p>
+          </div>
 
-</div>
+          <div class="text-center all-icon">
+            <div class="icon sun-shower hide ">
+              <div class="cloud"></div>
+              <div class="sun">
+                <div class="rays"></div>
+              </div>
+              <div class="rain"></div>
+            </div>
+            <div class="icon thunder-storm hide thunderstom">
+              <div class="cloud"></div>
+              <div class="lightning">
+                <div class="bolt"></div>
+                <div class="bolt"></div>
+              </div>
+            </div>
+            <div class="icon cloudy hide clouds">
+              <div class="cloud"></div>
+              <div class="cloud"></div>
+            </div>
+            <div class="icon flurries hide snow">
+              <div class="cloud"></div>
+              <div class="snow">
+                <div class="flake"></div>
+                <div class="flake"></div>
+              </div>
+            </div>
+            <div class="icon sunny hide clear">
+              <div class="sun">
+                <div class="rays"></div>
+              </div>
+            </div>
+            <div class="icon rainy hide rain">
+              <div class="cloud"></div>
+              <div class="rain"></div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+</ul>
   </body>
 </html>

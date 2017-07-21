@@ -1,46 +1,74 @@
-//create function that will check whether browswer supports geolocation (if statement)
+var api = "https://fcc-weather-api.glitch.me/api/current?";
+var lat, lon;
+var tempUnit = 'C';
+var currentTempInCelsius;
 
-
-//create variable that will be filled with the coordinates
-var geo = {};
-
-if (navigator.geolocation){
-  navigator.geolocation.getCurrentPosition(success, error);
-}
-else  {
-  alert('Geolocation is not supported');
-};
-
-function error(){
-  alert("Could not find your location for some odd reason");
-}
-
-//function for when location is found
-function success(position){
-  Geo.lat = position.coords.latitude;
-  Geo.lng = position.coords.longitude;
-}
-
-var key = "AIzaSyB8NBwsve-lYsecoaJoiJPFmwud6bUBp2Y";
-var Weather = "http://api.wunderground.com/api/" + cbb433e2a5f8b678 +"/forecast/geolookup/conditions/q/" + Geo.lat + "," + Geo.lng + ".json";
-
-$.ajax({
-  url : Weather,
-  dataType: "jsonp",
-  success : function(data){
-    // get all the information
+$( document ).ready(function(){
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var lat = "lat=" + position.coords.latitude;
+      var lon = "lon=" + position.coords.longitude;
+      getWeather(lat, lon);
+    });
+  } else {
+    console.log("Geolocation is not supported by this browser.");
   }
-});
 
-var location = data['location']['city'];
-var temp = data['current_observation']['temp_f'];
-var img = data['current_observation']['icon_url'];
-var desc = data['current_observation']['weather'];
-var wind = data['current_observation']['wind_string'];
+  $("#tempunit").click(function () {
+    var currentTempUnit = $("#tempunit").text();
+    var newTempUnit = currentTempUnit == "C" ? "F" : "C";
+    $("#tempunit").text(newTempUnit);
+    if (newTempUnit == "F") {
+      var fahTemp = Math.round(parseInt($("#temp").text()) * 9 / 5 + 32);
+      $("#temp").text(fahTemp + " " + String.fromCharCode(176));
+    } else {
+      $("#temp").text(currentTempInCelsius + " " + String.fromCharCode(176));
+    }
+  });
 
+})
 
-$('#location').html(location);
-$('#temp').html(temp);
-$('#desc').html(desc);
-$('#ind').html(wind);
-$('#img').attr('src', img);
+function getWeather(lat, lon) {
+  var urlString = api + lat + "&" + lon;
+  $.ajax({
+    url: urlString, success: function (result) {
+      $("#city").text(result.name + ", ");
+      $("#country").text(result.sys.country);
+      currentTempInCelsius = Math.round(result.main.temp * 10) / 10;
+      $("#temp").text(currentTempInCelsius + " " + String.fromCharCode(176));
+      $("#tempunit").text(tempUnit);
+      $("#desc").text(result.weather[0].main);
+      IconGen(result.weather[0].main);
+    }
+  });
+}
+
+function IconGen(desc) {
+  var desc = desc.toLowerCase()
+  switch (desc) {
+    case 'drizzle':
+      addIcon(desc)
+      break;
+    case 'clouds':
+      addIcon(desc)
+      break;
+    case 'rain':
+      addIcon(desc)
+      break;
+    case 'snow':
+      addIcon(desc)
+      break;
+    case 'clear':
+      addIcon(desc)
+      break;
+    case 'thunderstom':
+      addIcon(desc)
+      break;
+    default:
+      $('div.clouds').removeClass('hide');
+  }
+}
+
+function addIcon(desc) {
+  $('div.' + desc).removeClass('hide');
+}
