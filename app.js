@@ -4,6 +4,7 @@ var tempUnit = 'C';
 var currentTempInCelsius;
 
 $( document ).ready(function(){
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       var lat = "lat=" + position.coords.latitude;
@@ -13,6 +14,8 @@ $( document ).ready(function(){
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
+
+
 
   $("#tempunit").click(function () {
     var currentTempUnit = $("#tempunit").text();
