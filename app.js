@@ -1,8 +1,8 @@
 var api = "https://fcc-weather-api.glitch.me/api/current?";
 var lat, lon;
-var tempUnit = 'C';
+var tempUnit = 'F';
 var currentTempInCelsius;
-
+var currentTempInF;
 $( document ).ready(function(){
 
   if (navigator.geolocation) {
@@ -38,7 +38,8 @@ function getWeather(lat, lon) {
       $("#city").text(result.name + ", ");
       $("#country").text(result.sys.country);
       currentTempInCelsius = Math.round(result.main.temp * 10) / 10;
-      $("#temp").text(currentTempInCelsius + " " + String.fromCharCode(176));
+      currentTempInF = currentTempInCelsius * (9/5) + 32;
+      $("#temp").text(currentTempInF + " " + String.fromCharCode(176));
       $("#tempunit").text(tempUnit);
       $("#desc").text(result.weather[0].main);
       IconGen(result.weather[0].main);
